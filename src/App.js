@@ -1,13 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Navigation from './components/NavigationBar';
+
 
 function App() {
-  return (
-    <div className="App">
-     <h2>Olx CLone</h2>
-    </div>
-  );
+	return (
+		<div>
+		 <Navigation/>
+		</div>
+	);
 }
 
 export default App;
