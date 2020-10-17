@@ -1,0 +1,22 @@
+.products{
+    margin-top:50px;
+}
+
+.products_address{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7em;
+    color:grey;
+    padding:5px;
+}
+
+.products_Image{
+    display: flex;
+    width: 200px !important;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.products_Image > card-img-top{
+    margin-right: 8px;
+}

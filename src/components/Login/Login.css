@@ -1,0 +1,8 @@
+.login__buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+.login__buttons button{
+    margin-top:10px;
+}
