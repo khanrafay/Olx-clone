@@ -3,6 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap'
 import './Login.css';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Signin from '../Auth/Signin';
+import Signup from '../Auth/Signup';
 
 function Login(props) {
 
@@ -69,7 +70,7 @@ function Login(props) {
                 //             Submit
                 // </Button>
                 //     </Form>
-                <Signin/>
+                <Signup/>
                 }
             </Modal.Body>
             <Modal.Footer>
