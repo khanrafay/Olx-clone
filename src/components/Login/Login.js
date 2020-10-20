@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import './Login.css';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Signin from '../Auth/Signin';
 import Signup from '../Auth/Signup';
 
@@ -9,9 +8,8 @@ function Login(props) {
 
     const [isModalOpen, setModalOpen] = useState(props.show);
     const [isEmailBlock, setEmailBlock] = useState(false);
-    const [isButtonBlock, setButtonBlock] = useState(true);
-    const [email, setEmail] = useState("");
-    const [password, setPassowrd] = useState("");
+    const [isButtonVisible, setButtonVisible] = useState(true);
+    const [isSignIn, setSignIn] = useState(true);
 
     console.log(isModalOpen);
     const handleClose = () => {
@@ -19,7 +17,7 @@ function Login(props) {
     }
 
     const handleButtonBlack = () => {
-        setButtonBlock(false);
+        setButtonVisible(false);
         setEmailBlock(true);
     }
     return (
@@ -30,16 +28,10 @@ function Login(props) {
             className="login"
         >
             <Modal.Header >
-            <Button variant="outline-secondary" onClick={() => props.setShow(!props.show)}>
-                    X
-          </Button>
                 <Modal.Title>Login</Modal.Title>
-                <Button variant="outline-secondary" onClick={() => props.setShow(!props.show)}>
-                    <ArrowBackIcon/>
-          </Button>
             </Modal.Header>
             <Modal.Body className="login__buttons">
-                {isButtonBlock &&
+                {isButtonVisible &&
                     <>
                         <Button variant="outline-secondary">Continue with Phone</Button>
                         <Button variant="outline-primary">Continue with Facebook</Button>
@@ -50,31 +42,13 @@ function Login(props) {
                     </>
                 }
                 {isEmailBlock &&
-                //     <Form>
-                //         <Form.Group controlId="formBasicEmail">
-                //             <Form.Label>Email address</Form.Label>
-                //             <Form.Control type="email" placeholder="Enter email" />
-                //             <Form.Text className="text-muted">
-                //                 We'll never share your email with anyone else.
-                //   </Form.Text>
-                //         </Form.Group>
-
-                //         <Form.Group controlId="formBasicPassword">
-                //             <Form.Label>Password</Form.Label>
-                //             <Form.Control type="password" placeholder="Password" />
-                //         </Form.Group>
-                //         <Form.Group controlId="formBasicCheckbox">
-                //             <Form.Check type="checkbox" label="Check me out" />
-                //         </Form.Group>
-                //         <Button variant="primary" type="submit">
-                //             Submit
-                // </Button>
-                //     </Form>
-                <Signup/>
+                    <Signin isSignIn={isSignIn} />
                 }
             </Modal.Body>
             <Modal.Footer>
-             
+                <Button variant="secondary" onClick={() => props.setShow(!props.show)}>
+                    Close
+          </Button>
             </Modal.Footer>
         </Modal>
     )

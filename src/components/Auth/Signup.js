@@ -9,14 +9,17 @@ function Signup() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
+    const createUserWithEmailAndPasswordHandler = async (event) => {
         event.preventDefault();
+        console.log('create') 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            generateUserDocument(user, { name });
             console.log('object', user);
+            generateUserDocument(user, { name });
+            console.log('gen', user);
         }
         catch (error) {
+            console.log(error);
             setError('Error Signing up with email and password');
         }
 
@@ -25,12 +28,12 @@ function Signup() {
         setName("");
     };
 
-    const onFormSubmit = () => {
-        createUserWithEmailAndPasswordHandler(email, password);
-    }
+    // const onFormSubmit = () => {
+    //     createUserWithEmailAndPasswordHandler(email, password);
+    // }
     return (
         <div>
-            <Form onSubmit={onFormSubmit}>
+            <Form onSubmit={createUserWithEmailAndPasswordHandler}>
                 <Form.Group controlId="formBasicName">
                     <Form.Label>Display Name</Form.Label>
                     <Form.Control value={name} onChange={(e) => { setName(e.currentTarget.value) }}
@@ -52,6 +55,7 @@ function Signup() {
                 <Button variant="primary" type="submit">
                     Sign Up
 				</Button>
+                <Form.Text>{error}</Form.Text>
                 <Form.Text >Have an account? Log In here</Form.Text>
                 <Form.Text >Forgot Password</Form.Text>
 

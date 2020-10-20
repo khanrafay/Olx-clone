@@ -8,7 +8,7 @@ import Login from '../Login/Login';
 function Navigation() {
 	const playerImage = <img src="img" />;
 
-	const [isModalOpen, setModalOpen] = useState(true);
+	const [isModalOpen, setModalOpen] = useState(false);
 
 	return (
 		<div>
@@ -52,7 +52,7 @@ function Navigation() {
 				<p>Drop down of Categories</p>
 			</div>
 			<div>
-				<img src={bg_Image} />
+				<img style={{width:'100%'}} src={bg_Image} />
 			</div>
 
 			{isModalOpen &&

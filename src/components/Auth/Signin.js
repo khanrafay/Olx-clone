@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-function Signin() {
-     
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+function Signin(props) {
+
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
 
 
 	return (
@@ -13,7 +13,7 @@ function Signin() {
 			<Form>
 				<Form.Group controlId="formBasicEmail">
 					<Form.Label>Email address</Form.Label>
-					<Form.Control value={email} onChange={(e) => {setEmail(e.currentTarget.value)}} type="email" placeholder="Enter email" />
+					<Form.Control value={email} onChange={(e) => { setEmail(e.currentTarget.value) }} type="email" placeholder="Enter email" />
 					<Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
 				</Form.Group>
 
@@ -27,8 +27,8 @@ function Signin() {
 				<Button variant="primary" type="submit">
 					Submit
 				</Button>
-                <Form.Text >Don't have an account? Sign up here</Form.Text>
-                <Form.Text >Forgot Password</Form.Text>
+				<Form.Text >Don't have an account? <Button onClick={props.isSignIn}>Sign up here</Button></Form.Text>
+				<Form.Text >Forgot Password</Form.Text>
 
 			</Form>
 		</div>
