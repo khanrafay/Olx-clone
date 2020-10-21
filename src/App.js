@@ -18,6 +18,10 @@ function App() {
 					<Navigation />
 					<Home />
 				</Route>
+				<Route path="/home">
+					<Navigation />
+					<Home />
+				</Route>
 			</Switch>
 		</Router>
 	);

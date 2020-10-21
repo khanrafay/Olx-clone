@@ -9,7 +9,8 @@ function Login(props) {
     const [isModalOpen, setModalOpen] = useState(props.show);
     const [isEmailBlock, setEmailBlock] = useState(false);
     const [isButtonVisible, setButtonVisible] = useState(true);
-    const [isSignIn, setSignIn] = useState(true);
+    //const [isSignIn, setSignIn] = useState(true);
+    const [isSignUp, setSignUp] = useState(false);
 
     console.log(isModalOpen);
     const handleClose = () => {
@@ -41,9 +42,13 @@ function Login(props) {
                             variant="outline-info">Continue with Email</Button>
                     </>
                 }
-                {isEmailBlock &&
-                    <Signin isSignIn={isSignIn} />
-                }
+                {isEmailBlock && <>
+                    {isSignUp ?
+                        <Signup setSignUp={setSignUp} setModal={setModalOpen} />
+                        :
+                        <Signin setSignUp={setSignUp} />
+                    }
+                </>}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => props.setShow(!props.show)}>

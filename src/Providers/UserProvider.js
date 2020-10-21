@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import {auth, generateUserDocument} from '../firebaseconfig/firebase';
+import { auth, generateUserDocument } from '../firebaseconfig/firebase';
 
 
 export const UserContext = createContext({ user: null });
@@ -13,6 +13,7 @@ function UserProvider({ children }) {
             setUser({ user });
         });
     })
+   
     return (
         <UserContext.Provider value={user}>
             {children}

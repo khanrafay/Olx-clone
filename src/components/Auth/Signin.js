@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import './Signin.css';
 
 function Signin(props) {
 
@@ -27,8 +28,13 @@ function Signin(props) {
 				<Button variant="primary" type="submit">
 					Submit
 				</Button>
-				<Form.Text >Don't have an account? <Button onClick={props.isSignIn}>Sign up here</Button></Form.Text>
-				<Form.Text >Forgot Password</Form.Text>
+				<Form.Text className="signin__no--account">Don't have an account? <Button
+					variant="link"
+					onClick={() => props.setSignUp(true)}>
+					Sign up here</Button>
+				</Form.Text>
+
+				<Button variant="link" >Forgot Password</Button>
 
 			</Form>
 		</div>

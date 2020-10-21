@@ -1,22 +1,32 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import { auth, generateUserDocument } from '../../firebaseconfig/firebase';
+import './Signin.css';
+import { Link, useHistory } from 'react-router-dom';
 
-function Signup() {
+
+function Signup(props) {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+    const history = useHistory();
 
     const createUserWithEmailAndPasswordHandler = async (event) => {
         event.preventDefault();
-        console.log('create') 
+        console.log('create')
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             console.log('object', user);
+
             generateUserDocument(user, { name });
             console.log('gen', user);
+            setSuccess("Your account has been created.")
+            props.setModal(false);
+            history.push('/');
         }
         catch (error) {
             console.log(error);
@@ -55,8 +65,19 @@ function Signup() {
                 <Button variant="primary" type="submit">
                     Sign Up
 				</Button>
+                {success !== "" &&
+                    <Alert variant='success'>
+                        {success}
+                    </Alert>
+                }
                 <Form.Text>{error}</Form.Text>
-                <Form.Text >Have an account? Log In here</Form.Text>
+                <Form.Text className="signin__no--account">Have an account?
+                    <Button
+                        variant="link"
+                        onClick={() => { props.setSignUp(false) }}>
+                        Log In here</Button>
+
+                </Form.Text>
                 <Form.Text >Forgot Password</Form.Text>
 
             </Form>
