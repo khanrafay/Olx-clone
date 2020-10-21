@@ -14,7 +14,7 @@ function Login(props) {
 
     console.log(isModalOpen);
     const handleClose = () => {
-        setModalOpen(!props.show);
+      props.setShow(!props.show)
     }
 
     const handleButtonBlack = () => {
@@ -44,7 +44,7 @@ function Login(props) {
                 }
                 {isEmailBlock && <>
                     {isSignUp ?
-                        <Signup setSignUp={setSignUp} setModal={setModalOpen} />
+                        <Signup setSignUp={setSignUp} setModal={props.setModal} />
                         :
                         <Signin setSignUp={setSignUp} />
                     }

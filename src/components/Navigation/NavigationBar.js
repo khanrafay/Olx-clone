@@ -56,7 +56,7 @@ function Navigation() {
 			</div>
 
 			{isModalOpen &&
-				<Login show={isModalOpen} setShow={setModalOpen} />
+				<Login show={isModalOpen} setModal={setModalOpen} />
 			}
 		</div>
 	);
