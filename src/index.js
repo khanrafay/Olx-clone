@@ -5,11 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserProvider from './Providers/UserProvider';
+import reducer, { initialState } from './Providers/reducer';
+
 
 ReactDOM.render(
 
   <React.StrictMode>
-    <UserProvider>
+    <UserProvider initialState={initialState} reducer={reducer}>
       <App />
     </UserProvider>
   </React.StrictMode>

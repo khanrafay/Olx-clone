@@ -1,26 +1,25 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useContext, useReducer } from 'react'
 import { auth, generateUserDocument } from '../firebaseconfig/firebase';
 
 
-export const UserContext = createContext({ user: null });
+export const UserContext = createContext();
 
-function UserProvider({ children }) {
+export default function UserProvider({ reducer, initialState, children }) {
 
-    const [user, setUser] = useState(null)
-    useEffect(() => {
-        auth.onAuthStateChanged(async userAuth => {
-            const user = await generateUserDocument(userAuth);
-            setUser({ user });
-        });
-    })
-   
+    // useEffect(() => {
+    //     auth.onAuthStateChanged(async userAuth => {
+    //         const user = await generateUserDocument(userAuth);
+    //         setUser({ user });
+    //     });
+    // })
+
     return (
-        <UserContext.Provider value={user}>
+        <UserContext.Provider value={useReducer(reducer, initialState)}>
             {children}
         </UserContext.Provider>
     )
 }
 
-export default UserProvider
+export const useStateValue = () => useContext(UserContext);
 
 

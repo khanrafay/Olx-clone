@@ -5,11 +5,14 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
 import bg_Image from '../../Images/hero_bg_pk.jpg';
 import Login from '../Login/Login';
+import { useStateValue } from '../../Providers/UserProvider';
+
 function Navigation() {
 	const playerImage = <img src="img" />;
 
 	const [isModalOpen, setModalOpen] = useState(false);
-
+	const [{ user }, disptach] = useStateValue();
+	console.log('user', user)
 	return (
 		<div>
 			<Navbar bg="light" expand="lg">
@@ -28,11 +31,21 @@ function Navigation() {
 							<NotificationsIcon />
 						</div> */}
 						<div style={{ display: 'flex' }}>
-							<Button
-								onClick={() => { setModalOpen(true) }}
-								style={{ marginRight: '10px' }}>
-								Login
+							<h4>Welcome {user?.email}</h4>
+							{user ? (
+								<Button
+									onClick={() => { setModalOpen(true) }}
+									style={{ marginRight: '10px' }}>
+									Sign out
 								</Button>
+							) : (
+									<Button
+										onClick={() => { setModalOpen(true) }}
+										style={{ marginRight: '10px' }}>
+										Login
+									</Button>
+								)}
+
 							<Button>Sell</Button>
 						</div>
 
@@ -52,7 +65,7 @@ function Navigation() {
 				<p>Drop down of Categories</p>
 			</div>
 			<div>
-				<img style={{width:'100%'}} src={bg_Image} />
+				<img style={{ width: '100%' }} src={bg_Image} />
 			</div>
 
 			{isModalOpen &&
