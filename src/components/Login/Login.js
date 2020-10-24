@@ -46,7 +46,7 @@ function Login(props) {
                     {isSignUp ?
                         <Signup setSignUp={setSignUp} setModal={props.setModal} />
                         :
-                        <Signin setSignUp={setSignUp} />
+                        <Signin setSignUp={setSignUp} setModal={props.setModal} />
                     }
                 </>}
             </Modal.Body>

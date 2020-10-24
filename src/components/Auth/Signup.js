@@ -7,7 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 function Signup(props) {
 
-    const [name, setName] = useState("");
+    const [displayName, setDisplayName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -17,25 +17,23 @@ function Signup(props) {
 
     const createUserWithEmailAndPasswordHandler = async (event) => {
         event.preventDefault();
-        console.log('create')
+      
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            console.log('object', user);
-
-            generateUserDocument(user, { name });
-            console.log('gen', user);
+            generateUserDocument(user, { displayName });
+         
             setSuccess("Your account has been created.")
             props.setModal(false);
             history.push('/');
         }
         catch (error) {
-            console.log(error);
+            console.log('error', error);
             setError('Error Signing up with email and password');
         }
 
         setEmail("");
         setPassword("");
-        setName("");
+        setDisplayName("");
     };
 
     // const onFormSubmit = () => {
@@ -46,7 +44,7 @@ function Signup(props) {
             <Form onSubmit={createUserWithEmailAndPasswordHandler}>
                 <Form.Group controlId="formBasicName">
                     <Form.Label>Display Name</Form.Label>
-                    <Form.Control value={name} onChange={(e) => { setName(e.currentTarget.value) }}
+                    <Form.Control value={displayName} onChange={(e) => { setDisplayName(e.currentTarget.value) }}
                         type="name" placeholder="Enter Name" />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">

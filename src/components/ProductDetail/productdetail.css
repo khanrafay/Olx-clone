@@ -1,0 +1,18 @@
+.productdetail__img{
+    height:400px;
+    width:100%;
+}
+
+.productdetail__address{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7em;
+    color:grey;
+    padding:5px;
+    margin-bottom: -39px;
+}
+
+.productdetail__phone{
+    display: flex;
+    justify-content: space-around;
+}

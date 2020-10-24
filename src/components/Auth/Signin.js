@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useHistory } from 'react-router';
+import { auth } from '../../firebaseconfig/firebase';
 import './Signin.css';
 
 function Signin(props) {
@@ -8,10 +10,27 @@ function Signin(props) {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
+	const signInUserWithEmailAndPasswordHandler = async (event) => {
+        event.preventDefault();
+      
+        try {
+            const { user } = await auth.signInWithEmailAndPassword(email, password);
+            props.setModal(false);
+            useHistory.push('/');
+        }
+        catch (error) {
+            console.log('error', error);
+            setError('Error Signing in with email and password');
+        }
+
+        setEmail("");
+        setPassword("");
+    };
+
 
 	return (
 		<div>
-			<Form>
+			<Form onSubmit={signInUserWithEmailAndPasswordHandler}>
 				<Form.Group controlId="formBasicEmail">
 					<Form.Label>Email address</Form.Label>
 					<Form.Control value={email} onChange={(e) => { setEmail(e.currentTarget.value) }} type="email" placeholder="Enter email" />

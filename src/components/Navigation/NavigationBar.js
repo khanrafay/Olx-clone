@@ -6,13 +6,27 @@ import PersonIcon from '@material-ui/icons/Person';
 import bg_Image from '../../Images/hero_bg_pk.jpg';
 import Login from '../Login/Login';
 import { useStateValue } from '../../Providers/UserProvider';
+import { auth } from '../../firebaseconfig/firebase';
+
 
 function Navigation() {
 	const playerImage = <img src="img" />;
 
 	const [isModalOpen, setModalOpen] = useState(false);
 	const [{ user }, disptach] = useStateValue();
-	console.log('user', user)
+	//const [isUserSignedIn, setUserSignedIn] = useState();
+	//console.log('isUserSin', isUserSignedIn, user)
+	const handleSignOut = () => {
+		auth.signOut().then(
+			() => {
+				console.log('signed out successfully')
+				disptach({
+					type: 'SET_USER',
+					user: null
+				})
+			})
+			.catch((error) => console.log(error))
+	}
 	return (
 		<div>
 			<Navbar bg="light" expand="lg">
@@ -31,13 +45,16 @@ function Navigation() {
 							<NotificationsIcon />
 						</div> */}
 						<div style={{ display: 'flex' }}>
-							<h4>Welcome {user?.email}</h4>
+
 							{user ? (
-								<Button
-									onClick={() => { setModalOpen(true) }}
-									style={{ marginRight: '10px' }}>
-									Sign out
+								<>
+									<h4>Welcome {user?.displayName}</h4>
+									<Button
+										onClick={handleSignOut}
+										style={{ marginRight: '10px' }}>
+										Sign out
 								</Button>
+								</>
 							) : (
 									<Button
 										onClick={() => { setModalOpen(true) }}
