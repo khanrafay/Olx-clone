@@ -1,7 +1,31 @@
+.productdetail{
+    margin-top:40px;
+}
+
 .productdetail__img{
     height:400px;
     width:100%;
 }
+
+.productdetail__details-type{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0,47,52,.2);
+}
+
+
+.productdetail__sidedetails > div{
+        margin-top:10px;
+}
+
+.productdetail__description{
+    margin-top:20px;
+}
+
+.productdetail__ads{
+    margin-top:10px;
+}
+
 
 .productdetail__address{
     display: flex;
@@ -16,3 +40,8 @@
     display: flex;
     justify-content: space-around ;
 }
+
+.productdetail__map{
+    width:100%;
+}
+
