@@ -13,6 +13,9 @@ import { auth } from './firebaseconfig/firebase';
 import { useStateValue } from './Providers/UserProvider';
 import { firestore } from './firebaseconfig/firebase';
 import ProductDetail from './components/ProductDetail/productdetail';
+import Post from './components/Post/post';
+import PostHeader from './components/PostHeader/postheader';
+import Attributes from './components/Attributes/attributes';
 
 function App() {
 
@@ -61,6 +64,14 @@ function App() {
 				<Route path="/product/:id">
 					<Navigation />
 					<ProductDetail />
+				</Route>
+				<Route path="/post">
+					<PostHeader/>
+                   <Post/> 
+				</Route>
+				<Route path="/post/attributes">
+					<PostHeader/>
+                   <Attributes/> 
 				</Route>
 			</Switch>
 		</Router>

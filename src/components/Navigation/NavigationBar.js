@@ -7,6 +7,7 @@ import bg_Image from '../../Images/hero_bg_pk.jpg';
 import Login from '../Login/Login';
 import { useStateValue } from '../../Providers/UserProvider';
 import { auth } from '../../firebaseconfig/firebase';
+import { Link } from 'react-router-dom';
 
 
 function Navigation() {
@@ -48,7 +49,7 @@ function Navigation() {
 
 							{user ? (
 								<>
-									<h4>Welcome {user?.displayName}</h4>
+									<p>Welcome {user?.displayName}</p>
 									<Button
 										onClick={handleSignOut}
 										style={{ marginRight: '10px' }}>
@@ -63,7 +64,7 @@ function Navigation() {
 									</Button>
 								)}
 
-							<Button>Sell</Button>
+							<Link to="/post">Sell</Link>
 						</div>
 
 					</div>

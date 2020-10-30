@@ -1,0 +1,20 @@
+.post{
+    margin-left:0px !important;
+    margin-top:0px !important;
+}
+
+
+.post__header  > * {
+    margin-left:10px;
+}
+
+.post__ads{
+    margin-top:20px;
+    text-align: center;
+}
+
+.post__categories{
+    border: 1px solid lightgrey;
+    width:60%;
+    margin:0px auto;
+}
