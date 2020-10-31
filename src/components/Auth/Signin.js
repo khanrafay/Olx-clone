@@ -45,7 +45,7 @@ function Signin(props) {
 					<Form.Check type="checkbox" label="Check me out" />
 				</Form.Group>
 				<Button variant="primary" type="submit">
-					Submit
+					Login
 				</Button>
 				<Form.Text className="signin__no--account">Don't have an account? <Button
 					variant="link"

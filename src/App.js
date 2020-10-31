@@ -36,7 +36,7 @@ function App() {
 						// The user just logged in or user was logged in
 						disptach({
 							type: 'SET_USER',
-							user: snapshot.data()
+							user: authUser
 						})
 					} else {
 						// The user is logged out
@@ -69,7 +69,7 @@ function App() {
 					<PostHeader/>
                    <Post/> 
 				</Route>
-				<Route path="/post/attributes">
+				<Route path="/attributes">
 					<PostHeader/>
                    <Attributes/> 
 				</Route>

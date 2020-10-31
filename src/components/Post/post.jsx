@@ -13,7 +13,7 @@ function Post() {
                     <Card style={{ width: '18rem' }}>
                         <ListGroup variant="flush">
                             <ListGroup.Item>
-                                <Link to="/post/attributes">
+                                <Link to="/attributes">
                                 Mobile
                                 </Link>
                                 </ListGroup.Item>

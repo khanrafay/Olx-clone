@@ -7,16 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import UserProvider from './Providers/UserProvider';
 import reducer, { initialState } from './Providers/reducer';
 
-
 ReactDOM.render(
-
-  <React.StrictMode>
-    <UserProvider initialState={initialState} reducer={reducer}>
-      <App />
-    </UserProvider>
-  </React.StrictMode>
-  ,
-  document.getElementById('root')
+	<UserProvider initialState={initialState} reducer={reducer}>
+		<App />
+	</UserProvider>,
+	document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
