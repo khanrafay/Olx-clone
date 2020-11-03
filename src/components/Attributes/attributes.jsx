@@ -6,12 +6,17 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useStateValue } from '../../Providers/UserProvider';
 import { firestore } from '../../firebaseconfig/firebase';
+import firebase from 'firebase';
+import MultiImageInput from 'react-multiple-image-input';
+import ImageUploading from 'react-images-uploading';
+import 'antd/dist/antd.css';
+
 
 function Attributes() {
 
 
     const [make, setMake] = useState("");
-    const [condition, setCondition] = useState("");
+    const [condition, setCondition] = useState("New");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -33,6 +38,7 @@ function Attributes() {
     }
 
     const handlePreview = async file => {
+
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj);
         }
@@ -48,8 +54,10 @@ function Attributes() {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
+
             reader.onload = () => resolve(reader.result);
             reader.onerror = error => reject(error);
+            console.log('reader', reader)
         });
     }
 
@@ -60,25 +68,59 @@ function Attributes() {
         </div>
     );
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('here')
-        setPostData({
-            title,
-            description,
-            price,
-            state,
-            city
-        })
-        console.log('here',postData)
         try {
-
+            let docId;
             if (user !== null) {
                 let uid;
                 uid = user.uid;
                 const db = firestore;
                 console.log('postData', postData, uid)
-                db.collection('users').doc(uid).collection('posts').doc().set({title:'hello'})
+                const doc = db.collection('users').doc(uid).collection('posts').doc().set(
+                    {
+                        make,
+                        condition,
+                        title,
+                        description,
+                        price,
+                        state,
+                        city,
+                    }
+                ).then(_ => {
+                    console.log('User post added')
+                    docId = doc;
+                }).catch(error => {
+                    console.log('error', error)
+                })
+
+
+                var metadata = {
+                    contentType: 'image/jpeg',
+
+                };
+
+                fileList.map(file => firebase.storage().ref('users/post/' + docId + '/' + file.name).put(file.originFileObj, metadata)
+                    .on(
+                        "state changed",
+                        snapshot => { },
+                        error => {
+                            console.log(error)
+                        },
+                        () => {
+                            firebase.storage()
+                                .ref("users/post/")
+                                .child(docId)
+                                .child(file.name)
+                                .getDownloadURL()
+                                .then(url => {
+                                    console.log('url', url)
+                                })
+                        }
+                    )
+                )
             }
         }
         catch (error) {
@@ -87,8 +129,6 @@ function Attributes() {
     }
 
 
-    console.log('user', user)
-    console.log('user post data', postData, title)
     return (
         <div className="attributes">
             <Card >
@@ -106,7 +146,7 @@ function Attributes() {
                             <ListGroupItem>
                                 <Form.Group>
                                     <Form.Label>Make*</Form.Label>
-                                    <Form.Control as="select">
+                                    <Form.Control as="select" value={make} onChange={(e) => setMake(e.target.value)}>
                                         <option>Select make</option>
                                         <option>Nokia</option>
                                         <option>Samsung</option>
@@ -117,10 +157,15 @@ function Attributes() {
                                 <Form.Group>
                                     <Form.Label>Make*</Form.Label>
                                     <br />
-                                    <Button variant="outline-info">
+                                    <Button
+                                        style={{ marginRight: '4px' }}
+                                        onClick={() => setCondition("New")}
+                                        variant={condition === "New" ? 'info' : 'outline-info'}>
                                         New
                                    </Button>
-                                    <Button variant="outline-info">
+                                    <Button
+                                        onClick={() => setCondition("Used")}
+                                        variant={condition === "Used" ? 'info' : 'outline-info'}>
                                         Used
                                    </Button>
                                 </Form.Group>
@@ -172,6 +217,14 @@ function Attributes() {
                                     >
                                         <img alt="example" style={{ width: '100%' }} src={previewImage} />
                                     </Modal>
+                                    {/* <input type="file" multiple onChange={handleImageChange} /> */}
+                                    {/* <MultiImageInput
+                                        images={images}
+                                        setImages={setImages}
+                                        cropConfig={{ crop, ruleOfThirds: true }}
+                                        theme="light"
+                                    /> */}
+
                                 </Form.Group>
                             </ListGroupItem>
                             <ListGroupItem>
