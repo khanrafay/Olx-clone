@@ -79,7 +79,8 @@ function Attributes() {
                 uid = user.uid;
                 const db = firestore;
                 console.log('postData', postData, uid)
-                const doc = db.collection('users').doc(uid).collection('posts').doc().set(
+                const doc = db.collection('users').doc(uid).collection('posts').doc();
+                doc.set(
                     {
                         make,
                         condition,
@@ -90,37 +91,42 @@ function Attributes() {
                         city,
                     }
                 ).then(_ => {
-                    console.log('User post added')
-                    docId = doc;
+                    console.log('User post added', doc.id)
+                    docId = doc.id;
+                    var metadata = {
+                        contentType: 'image/jpeg',
+
+                    };
+
+                    console.log('uid', docId)
+                    if (fileList !== null) {
+                        fileList.map(file => firebase.storage().ref(`post/${docId}/${file.name}`).put(file.originFileObj, metadata)
+                            .on(
+                                "state changed",
+                                snapshot => { },
+                                error => {
+                                    console.log(error)
+                                },
+                                () => {
+                                    firebase.storage()
+                                        .ref("post/")
+                                        .child(docId)
+                                        .child(file.name)
+                                        .getDownloadURL()
+                                        .then(url => {
+                                            console.log('url', url)
+                                        })
+                                }
+                            )
+                        )
+                    }
                 }).catch(error => {
                     console.log('error', error)
                 })
 
 
-                var metadata = {
-                    contentType: 'image/jpeg',
 
-                };
 
-                fileList.map(file => firebase.storage().ref('users/post/' + docId + '/' + file.name).put(file.originFileObj, metadata)
-                    .on(
-                        "state changed",
-                        snapshot => { },
-                        error => {
-                            console.log(error)
-                        },
-                        () => {
-                            firebase.storage()
-                                .ref("users/post/")
-                                .child(docId)
-                                .child(file.name)
-                                .getDownloadURL()
-                                .then(url => {
-                                    console.log('url', url)
-                                })
-                        }
-                    )
-                )
             }
         }
         catch (error) {
