@@ -17,7 +17,8 @@ function Product() {
 				console.log(doc.id, ' => ', doc.data());
 				firestore.collection('users').doc(doc.id).collection('posts').onSnapshot((querySnapshot) => {
 					querySnapshot.forEach(function(doc) {
-						console.log(doc.id, ' => ', doc.data());
+						//console.log(doc.id, ' => ', doc.data());
+						setProductDetails(doc.data())
 					});
 				});
 			});
@@ -37,7 +38,8 @@ function Product() {
 
 	useEffect(() => {
 		getProductDetails();
-	}, []);
+	}, [productDetails]);
+
 	return (
 		<div className="products">
 			<Container>
