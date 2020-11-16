@@ -5,7 +5,7 @@ import { Upload, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useStateValue } from '../../Providers/UserProvider';
-import { firestore } from '../../firebaseconfig/firebase';
+import { fire, firestore } from '../../firebaseconfig/firebase';
 import firebase from 'firebase';
 import MultiImageInput from 'react-multiple-image-input';
 import ImageUploading from 'react-images-uploading';
@@ -73,61 +73,96 @@ function Attributes() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            let docId;
             if (user !== null) {
-                let uid;
-                uid = user.uid;
-                const db = firestore;
-                console.log('postData', postData, uid)
-                const doc = db.collection('users').doc(uid).collection('posts').doc();
-                doc.set(
-                    {
-                        make,
-                        condition,
-                        title,
-                        description,
-                        price,
-                        state,
-                        city,
-                    }
-                ).then(_ => {
-                    console.log('User post added', doc.id)
-                    docId = doc.id;
-                    var metadata = {
-                        contentType: 'image/jpeg',
-
-                    };
-
-                    console.log('uid', docId)
-                    if (fileList !== null) {
-                        fileList.map(file => firebase.storage().ref(`post/${docId}/${file.name}`).put(file.originFileObj, metadata)
-                            .on(
-                                "state changed",
-                                snapshot => { },
-                                error => {
-                                    console.log(error)
-                                },
-                                () => {
-                                    firebase.storage()
-                                        .ref("post/")
-                                        .child(docId)
-                                        .child(file.name)
-                                        .getDownloadURL()
-                                        .then(url => {
-                                            console.log('url', url)
-                                        })
-                                }
-                            )
-                        )
-                    }
-                }).catch(error => {
+                const postKey = fire.database().ref(`users/${user.uid}/posts/`).push({
+                    make,
+                    condition,
+                    title,
+                    price,
+                    state,
+                    city
+                }).then(success => {
+                    console.log('post updated', success, postKey)
+                    // if (fileList !== null) {
+                    //     fileList.map(file => firebase.storage().ref(`post/${postKey}/${file.name}`).put(file.originFileObj, metadata)
+                    //         .on(
+                    //             "state changed",
+                    //             snapshot => { },
+                    //             error => {
+                    //                 console.log(error)
+                    //             },
+                    //             () => {
+                    //                 firebase.storage()
+                    //                     .ref("post/")
+                    //                     .child(postKey)
+                    //                     .child(file.name)
+                    //                     .getDownloadURL()
+                    //                     .then(url => {
+                    //                         console.log('url', url)
+                    //                     })
+                    //             }
+                    //         )
+                    //     )
+                    // }
+                }).catch(error => [
                     console.log('error', error)
-                })
-
-
-
-
+                ])
             }
+            // let docId;
+            // if (user !== null) {
+            //     let uid;
+            //     uid = user.uid;
+            //     const db = firestore;
+            //     console.log('postData', postData, uid)
+            //     const doc = db.collection('users').doc(uid).collection('posts').doc();
+            //     doc.set(
+            //         {
+            //             make,
+            //             condition,
+            //             title,
+            //             description,
+            //             price,
+            //             state,
+            //             city,
+            //         }
+            //     ).then(_ => {
+            //         console.log('User post added', doc.id)
+            //         docId = doc.id;
+            //         var metadata = {
+            //             contentType: 'image/jpeg',
+
+            //         };
+
+            //         console.log('uid', docId)
+            //         if (fileList !== null) {
+            //             fileList.map(file => firebase.storage().ref(`post/${docId}/${file.name}`).put(file.originFileObj, metadata)
+            //                 .on(
+            //                     "state changed",
+            //                     snapshot => { },
+            //                     error => {
+            //                         console.log(error)
+            //                     },
+            //                     () => {
+            //                         firebase.storage()
+            //                             .ref("post/")
+            //                             .child(docId)
+            //                             .child(file.name)
+            //                             .getDownloadURL()
+            //                             .then(url => {
+            //                                 console.log('url', url)
+            //                             })
+            //                     }
+            //                 )
+            //             )
+            //         }
+            //     }).catch(error => {
+            //         console.log('error', error)
+            //     })
+
+
+
+
+            // }
         }
         catch (error) {
             console.log('error', error)

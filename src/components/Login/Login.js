@@ -51,7 +51,7 @@ function Login(props) {
                 </>}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => props.setShow(!props.show)}>
+                <Button variant="secondary" onClick={() => props.setModal(!props.show)}>
                     Close
           </Button>
             </Modal.Footer>

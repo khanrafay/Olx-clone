@@ -36,9 +36,9 @@ function Product() {
 		// });
 	};
 
-	useEffect(() => {
-		getProductDetails();
-	}, [productDetails]);
+	// useEffect(() => {
+	// 	getProductDetails();
+	// }, [productDetails]);
 
 	return (
 		<div className="products">
